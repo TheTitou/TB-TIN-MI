@@ -1,20 +1,22 @@
 \documentclass[
     iai, % Saisir le nom de l'institut rattaché
-    eai, % Saisir le nom de l'orientation
-    confidential, % Décommentez si le travail est confidentiel
+    mi, % Saisir le nom de l'orientation
+    %confidential, % Décommentez si le travail est confidentiel
 ]{heig-tb}
 
 \usepackage[nooldvoltagedirection,european,americaninductors]{circuitikz}
 
-\signature{mbernasconi.svg} % Remplacer par votre propre signature vectorielle.
+\DeclareMathSymbol{*}{\mathbin}{symbols}{"01}   % Replace "*" with middle point
 
-\makenomenclature
+
+\signature{Paillard.svg} % Remplacer par votre propre signature vectorielle.
+
+%\makenomenclature
 \makenoidxglossaries
 \makeindex
 
 \addbibresource{bibliography.bib}
 
-\input{nomenclature}
 \input{acronyms}
 \input{glossary}
 \input{meta}
@@ -23,14 +25,18 @@
 
 %% Début du document
 \begin{document}
-\selectlanguage{french}
+\selectlanguage{English}
 \maketitle
 \frontmatter
 \clearemptydoublepage
+%\newpage
 
 %% Requis par les dispositions générales des travaux de Bachelor
+\pagenumbering{Roman}
+
+
 \preamble
-\authentification
+\Authentication
 
 %% Résumé / Résumé publiable / Version abrégée
 \begin{abstract}
@@ -39,6 +45,8 @@
 
 %% Sommaire et tables
 \clearemptydoublepage
+%\newpage
+
 {
     \tableofcontents
     \let\cleardoublepage\clearpage
@@ -51,13 +59,24 @@
 
 \printnomenclature
 \clearemptydoublepage
+%\newpage
+
+\printglossaries
+\clearemptydoublepage
+%\newpage
+
 \pagenumbering{arabic}
 
 %% Contenu
 \mainmatter
 \chapter{Introduction}
 \input{introduction.tex}
-\input{examples.tex}
+
+\chapter{Theory}
+\input{theory.tex}
+
+\chapter{State of the art}
+\input{StateOfTheArt.tex}
 
 \chapter{Conclusion}
 \input{conclusion.tex}
@@ -69,27 +88,12 @@
 \appendixpage
 \addappheadtotoc
 
-%%if
+
 \chapter{Première annexe}
 
-Les annexes n'ont pas un contenu \underline{normatif} mais \underline{descriptif}. Tout contenu annexé ne doit pas être nécessaire à la bonne compréhension du travail.
 
-Les annexes contiennent généralement :
+\chapter{ assa}
 
-\begin{itemize}
-    \item les dessins mécaniques (mises en plan);
-    \item les schémas électriques détaillés;
-    \item des photographies du projet;
-    \item des scripts et des extraits de code source;
-    \item des documents techniques \pex \emph{datasheet};
-    \item des développements mathématiques.
-\end{itemize}
-\section{Sous section}
-\lipsum[1]
-%%fi
-
-\let\cleardoublepage\clearpage
-\backmatter
 
 \label{glossaire}
 \printnoidxglossary
@@ -97,6 +101,6 @@ Les annexes contiennent généralement :
 \printindex
 
 % Le colophon est le dernier élément d'un document qui contient des notes de l'auteur concernant la mise en page et l'édition du document : il est parfaitement optionnel.
-\input{colophon.tex}
+% \input{colophon.tex}
 
 \end{document}
