@@ -1,0 +1,114 @@
+\section{Principe}
+The principle of the optical design to be realized is schematized on the figure \ref{fig:OpticalPrincipe}.\bigbreak
+The output beam of the telescope must be made parallel before the system can be installed. Once the beam is parallel,
+a mask composed of 2 equal openings will limit it. This mask correspond to the entry of the system.\newline
+The beam will enter to a prism wich \textbf{\textcolor{red}{...}}\newline
+A lens will intersept the 2 beams and will allow to focus them on a sensor (BW camera).
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{assets/figures/Optical Design/Schéma optique.png}
+    \caption{Optical schematic principe}
+    \label{fig:OpticalPrincipe}
+\end{figure}
+\newpage
+\section{Drawing rays}
+This part will correspond to the mathematical research to draw the rays on a matlab program. The chosen method is the
+drawing of lines between 2 points. The calculated points are the following:
+\begin{enumerate}
+    \item Prism entry = ($X_{PE1,2,3,4},Y_{PE1,2,3,4}$)
+    \item Prism exit = ($X_{PO1,2,3,4},Y_{PO1,2,3,4}$)
+    \item Lens entry/exit = ($X_{L1,2,3,4},Y_{L1,2,3,4}$)
+    \item Screen entry = ($X_{S12,34},Y_{S12,34}$)
+\end{enumerate}
+Known data :
+\begin{itemize}
+    \item Prism angle = $\alpha$ [$\deg$] (converted into radian for the equations)
+    \item Deflection of the incident beam = $i$ [" arc] (converted into radian for the equations)
+    \item focal lens = $F$ [mm]
+    \item Hole diameter = $d$ [mm]
+    \item Distance betweeen two holes = $e$ [mm]
+    \item Distance between the prism and the lens = $E$ [mm]
+    \item Refractive index of the prism = $n_p$ [-]
+    \item Prism width = $t_c$ [mm]
+    \item Prism height = $h$ [mm]
+\end{itemize}
+Needed data :
+\begin{itemize}
+    \item Screen height = $H$ [mm]
+    \item System length = $L$ [mm]
+\end{itemize}
+
+\subsection{Prsim}
+\begin{figure}[H]
+    \centering
+    \includegraphics{assets/figures/Optical Design/Schéma prisme.png}
+    \caption{Schematic of drawing rays at the input of the prism}
+    \label{fig:Prism_Schematic}
+\end{figure}
+\begin{equation}
+    X_{PE1} = X_{PE2} = X_{PE3} = X_{PE4}
+\end{equation}
+\begin{equation}
+    Y_{PE1} = \frac{e + d}{2} \newline
+    Y_{PE2} = \frac{e - d}{2} \newline
+    Y_{PE3} = \frac{-e - d}{2} \newline
+    Y_{PE4} = \frac{-e + d}{2}
+\end{equation}
+\begin{equation}
+    \beta = \arcsin(n_p*\sin(\alpha-\arcsin(\frac{\sin(i)}{n_p})))-\alpha
+\end{equation}
+\begin{equation}
+    r = \arcsin(\frac{\sin(i)}{n_p})
+\end{equation}
+\begin{equation}
+    m_1 = \frac{-1}{\tan(\frac{\pi}{2}-r)}\newline
+    m_2 = \frac{-1}{\tan(\alpha)}
+\end{equation}
+\begin{equation}
+    m_3 = \frac{-1}{\tan(\frac{\pi}{2}-r)}\newline
+    m_4 = \frac{1}{\tan(\alpha)}
+\end{equation}
+\begin{equation}
+    b_1 = Y_{PE1}-X_{PE1}*m_1\newline
+    b_2 = Y_{PE2}-X_{PE2}*m_2\newline
+    b_{1s} = \frac{h}{2}-t_e*m_2
+\end{equation}
+\begin{equation}
+    b_3 = Y_{PE3}-X_{PE3}*m_3\newline
+    b_4 = Y_{PE4}-X_{PE4}*m_4\newline
+    b_{2s} = \frac{-h}{2}-t_e*m_4
+\end{equation}
+\begin{equation}
+    X_{PO1} = \frac{b_{1s}-b_1}{m_1-m_2}\newline
+    Y_{PO1} = X_{PE1}*m_1+b_{1s}
+\end{equation}
+\begin{equation}
+    X_{PO2} = \frac{b_{1s}-b_2}{m_1-m_2}\newline
+    Y_{PO2} = X_{PE2}*m_2+b_{1s}
+\end{equation}
+\begin{equation}
+    X_{PO3} = \frac{b_{2s}-b_1}{m_1-m_2}\newline
+    Y_{PO3} = X_{PE1}*m_1+b_{1s}
+\end{equation}
+\begin{equation}
+    X_{PO2} = \frac{b_{1s}-b_2}{m_1-m_2}\newline
+    Y_{PO2} = X_{PE2}*m_2+b_{1s}
+\end{equation}
+\subsection{Lens}
+\begin{figure}[H]
+    \centering
+    \includegraphics{assets/figures/Optical Design/Schéma sortie prisme.png}
+    \caption{Schematic of drawing rays at the output of the prism}
+    \label{fig:PrismLens_Schematic}
+\end{figure}
+\subsection{Screen}
+\begin{figure}[H]
+    \centering
+    \includegraphics{assets/figures/Optical Design/Schéma Lentille.png}
+    \caption{Schematic of drawing rays at the output of the lens}
+    \label{fig:Lens_Schematic}
+\end{figure}
+
+
+\section{Limitations of the system}\label{sec:Opti_Limit}
+Parler du ratio du masque etc

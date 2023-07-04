@@ -5,7 +5,7 @@
 ]{heig-tb}
 
 \usepackage[nooldvoltagedirection,european,americaninductors]{circuitikz}
-
+\usepackage[final]{pdfpages}
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"01}   % Replace "*" with middle point
 
 
@@ -78,6 +78,21 @@
 \chapter{State of the art}
 \input{StateOfTheArt.tex}
 
+\chapter{Optical design}
+\input{OpticalDesign.tex}
+
+\chapter{Mechanical design}
+\input{MechanicalDesign.tex}
+
+\chapter{Global system}
+\input{GlobalSystem.tex}
+
+\chapter{Measure}
+\input{Measures.tex}
+
+\chapter{Analysis}
+\input{Analysis.tex}
+
 \chapter{Conclusion}
 \input{conclusion.tex}
 
@@ -88,12 +103,7 @@
 \appendixpage
 \addappheadtotoc
 
-
-\chapter{Première annexe}
-
-
-\chapter{ assa}
-
+\input{Appendix.tex}
 
 \label{glossaire}
 \printnoidxglossary
