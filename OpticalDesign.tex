@@ -2,8 +2,8 @@
 The principle of the optical design to be realized is schematized on the figure \ref{fig:OpticalPrincipe}.\bigbreak
 The output beam of the telescope must be made parallel before the system can be installed. Once the beam is parallel,
 a mask composed of 2 equal openings will limit it. This mask correspond to the entry of the system.\newline
-The beam will enter to a prism wich \textbf{\textcolor{red}{...}}\newline
-A lens will intersept the 2 beams and will allow to focus them on a sensor (BW camera).
+The beam will enter to a prism which will deflect the beams to a lens.
+The lens will intersept the 2 beams and allow to focus them on a sensor (BW camera).
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{assets/figures/Optical Design/Schéma optique.png}
@@ -11,7 +11,12 @@ A lens will intersept the 2 beams and will allow to focus them on a sensor (BW c
     \label{fig:OpticalPrincipe}
 \end{figure}
 \newpage
-\section{Drawing rays}
+%====================================================================================================
+%====================================================================================================
+% Drawing rays with matlab
+%====================================================================================================
+%====================================================================================================
+\section{Drawing rays with matlab}
 This part will correspond to the mathematical research to draw the rays on a matlab program. The chosen method is the
 drawing of lines between 2 points. The calculated points are the following:
 \begin{enumerate}
@@ -37,14 +42,18 @@ Needed data :
     \item Screen height = $H$ [mm]
     \item System length = $L$ [mm]
 \end{itemize}
-
+\newpage
+%====================================================================================================
+% Prism
+%====================================================================================================
 \subsection{Prsim}
 \begin{figure}[H]
     \centering
-    \includegraphics{assets/figures/Optical Design/Schéma prisme.png}
+    \includegraphics[scale=0.8]{assets/figures/Optical Design/Schéma prisme.png}
     \caption{Schematic of drawing rays at the input of the prism}
     \label{fig:Prism_Schematic}
 \end{figure}
+First, set the X and Y input coordinates.
 \begin{equation}
     X_{PE1} = X_{PE2} = X_{PE3} = X_{PE4}
 \end{equation}
@@ -54,12 +63,16 @@ Needed data :
     Y_{PE3} = \frac{-e - d}{2} \newline
     Y_{PE4} = \frac{-e + d}{2}
 \end{equation}
-\begin{equation}
-    \beta = \arcsin(n_p*\sin(\alpha-\arcsin(\frac{\sin(i)}{n_p})))-\alpha
-\end{equation}
+Using Snell's law and the relationships between the angles, the exit angle can be determined.
 \begin{equation}
     r = \arcsin(\frac{\sin(i)}{n_p})
 \end{equation}
+
+\begin{equation}
+    \beta = \arcsin(n_p*\sin(\alpha-\arcsin(\frac{\sin(i)}{n_p})))-\alpha
+\end{equation}
+To find the output values, the affine line function (Y = aX + b) is used.
+This requires knowledge of the slopes and offsets of the straight lines (beam + prism output face).
 \begin{equation}
     m_1 = \frac{-1}{\tan(\frac{\pi}{2}-r)}\newline
     m_2 = \frac{-1}{\tan(\alpha)}
@@ -78,6 +91,7 @@ Needed data :
     b_4 = Y_{PE4}-X_{PE4}*m_4\newline
     b_{2s} = \frac{-h}{2}-t_e*m_4
 \end{equation}
+Now that the line parameters are known, the X and Y output points of each beam can be calculated.
 \begin{equation}
     X_{PO1} = \frac{b_{1s}-b_1}{m_1-m_2}\newline
     Y_{PO1} = X_{PE1}*m_1+b_{1s}
@@ -94,6 +108,10 @@ Needed data :
     X_{PO2} = \frac{b_{1s}-b_2}{m_1-m_2}\newline
     Y_{PO2} = X_{PE2}*m_2+b_{1s}
 \end{equation}
+Once the X,Y coordinates of the prism's inputs and outputs are known, it's easy to plot them in matlab (Appendix \ref{App:Matlab}). 
+%====================================================================================================
+% Lens
+%====================================================================================================
 \subsection{Lens}
 \begin{figure}[H]
     \centering
@@ -108,7 +126,39 @@ Needed data :
     \caption{Schematic of drawing rays at the output of the lens}
     \label{fig:Lens_Schematic}
 \end{figure}
-
-
+%====================================================================================================
+%====================================================================================================
+% Matrice de conjuguaison avec matlab
+%====================================================================================================
+%====================================================================================================
+\section{Conjugation matrix with matlab}
+blblalbalblabl
+%====================================================================================================
+%====================================================================================================
+% Camera specifications
+%====================================================================================================
+%====================================================================================================
+\section{Camera specifications}
+blablalbal
+%====================================================================================================
+%====================================================================================================
+% Lens selection
+%====================================================================================================
+%====================================================================================================
+\section{Lens selection}
+balblalbalblalab
+%====================================================================================================
+%====================================================================================================
+% Prism selection
+%====================================================================================================
+%====================================================================================================
+\section{Prism selection}
+blalbalblalb
+%====================================================================================================
+%====================================================================================================
+% Limitation
+%====================================================================================================
+%====================================================================================================
 \section{Limitations of the system}\label{sec:Opti_Limit}
 Parler du ratio du masque etc
+Parler du filtre solaire pour le télescope
