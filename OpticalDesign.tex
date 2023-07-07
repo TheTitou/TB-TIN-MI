@@ -17,8 +17,8 @@ The lens will intersept the 2 beams and allow to focus them on a sensor (BW came
 %====================================================================================================
 %====================================================================================================
 \section{Drawing rays with matlab}
-This part will correspond to the mathematical research to draw the rays on a matlab program. The chosen method is the
-drawing of lines between 2 points. The calculated points are the following:
+This part will correspond to the mathematical research to draw the rays on a matlab program. To simplify the program,
+the chosen method is to draw lines through 2 points. The calculated points are the following:
 \begin{enumerate}
     \item Prism entry = ($X_{PE1,2,3,4},Y_{PE1,2,3,4}$)
     \item Prism exit = ($X_{PO1,2,3,4},Y_{PO1,2,3,4}$)
@@ -71,7 +71,7 @@ Using Snell's law and the relationships between the angles, the exit angle can b
 \begin{equation}
     \beta = \arcsin(n_p*\sin(\alpha-\arcsin(\frac{\sin(i)}{n_p})))-\alpha
 \end{equation}
-To find the output values, the affine line function (Y = aX + b) is used.
+To find the output values, the affine line function (\ref{eq:DoiteAffine}) is used.
 This requires knowledge of the slopes and offsets of the straight lines (beam + prism output face).
 \begin{equation}
     m_1 = \frac{-1}{\tan(\frac{\pi}{2}-r)}\newline
@@ -108,7 +108,7 @@ Now that the line parameters are known, the X and Y output points of each beam c
     X_{PO2} = \frac{b_{1s}-b_2}{m_1-m_2}\newline
     Y_{PO2} = X_{PE2}*m_2+b_{1s}
 \end{equation}
-Once the X,Y coordinates of the prism's inputs and outputs are known, it's easy to plot them in matlab (Appendix \ref{App:Matlab}). 
+Once the X,Y coordinates of the prism's inputs and outputs are known, it's easy to plot them in matlab (Appendix \ref{App:Matlab}).
 %====================================================================================================
 % Lens
 %====================================================================================================
@@ -119,6 +119,24 @@ Once the X,Y coordinates of the prism's inputs and outputs are known, it's easy 
     \caption{Schematic of drawing rays at the output of the prism}
     \label{fig:PrismLens_Schematic}
 \end{figure}
+First, let's say :
+\begin{equation}
+    X_L = E
+\end{equation}
+With the equation of the affine line (\ref{eq:DoiteAffine}),
+where "a" can be determined using trigonometry (\ref{eq:Trigo_tan}),
+The offset can be determined using the points previously obtained.
+\begin{equation}
+    a = \frac{-1}{tan(90-\beta)}
+\end{equation}
+\begin{equation}
+    Y_{out} = a*X_{out} + b ==> b = Y_{out} - a*X_{out}
+\end{equation}
+We can now pose the equation that determines the $Y_L$ coordinate
+\begin{equation}
+    Y_{L} = a*X_{L} + b
+\end{equation}
+Once the X,Y coordinates of the lens's inputs are known, and with the prism's output coordinates, it's easy to plot them in matlab (Appendix \ref{App:Matlab}).
 \subsection{Screen}
 \begin{figure}[H]
     \centering
@@ -126,11 +144,22 @@ Once the X,Y coordinates of the prism's inputs and outputs are known, it's easy 
     \caption{Schematic of drawing rays at the output of the lens}
     \label{fig:Lens_Schematic}
 \end{figure}
+To begin with, the X coordinate can be set as it corresponds to the focal 
+point of the lens. Note that this equation is only valid if the lens is approximated to a thin lens.
+\begin{equation}
+    X = E+F
+\end{equation}
+Then, thanks to trigonometry (\ref{eq:Trigo_tan}), it is easy to find the coordinates Y
+\begin{equation}
+    Y = \pm F*tan(\beta)
+\end{equation}
+Once the X,Y coordinates of the screen's inputs are known, and with the lens's output coordinates, it's easy to plot them in matlab (Appendix \ref{App:Matlab}).
 %====================================================================================================
 %====================================================================================================
 % Matrice de conjuguaison avec matlab
 %====================================================================================================
 %====================================================================================================
+\newpage
 \section{Conjugation matrix with matlab}
 blblalbalblabl
 %====================================================================================================
