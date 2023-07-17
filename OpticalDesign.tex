@@ -144,7 +144,7 @@ Once the X,Y coordinates of the lens's inputs are known, and with the prism's ou
     \caption{Schematic of drawing rays at the output of the lens}
     \label{fig:Lens_Schematic}
 \end{figure}
-To begin with, the X coordinate can be set as it corresponds to the focal 
+To begin with, the X coordinate can be set as it corresponds to the focal
 point of the lens. Note that this equation is only valid if the lens is approximated to a thin lens.
 \begin{equation}
     X = E+F
@@ -168,13 +168,58 @@ blblalbalblabl
 %====================================================================================================
 %====================================================================================================
 \section{Camera specifications}
-blablalbal
+In order to determine which sensor will have the right specifications for this application,
+several elements will need to be calculated :
+\begin{itemize}
+    \item Pixel size to ensure an image with sufficient information
+    \item Screen size
+    \item The size the image will occupy on the sensor
+\end{itemize}
+\bigbreak
+To begin with, the mask must be positioned at the telescope entrance. To do this, the relationship between
+the holes and their spacing is used (:::). A virtual mask is placed over the telescope entrance,
+with a 20mm margin taken on the sides (10mm each). Using these elements, the diameter of the holes on the
+telescope can be determined by the equation \ref{eq:DMT} with $D_{MT}$ = diameter of a hole on the telescope entrance,
+$D$ = diameter of the telescope, $margin$ = 20mm, $ratio$ = ratio between the holes and their spacing.
+\begin{equation}\label{eq:DMT}
+    D_{MT} = \frac{(D-margin)}{(ratio + 1)} = \frac{(305-20)}{5+1} = 47.5 mm
+\end{equation}
+Now we need to know the transverse magnification ($G_t$) between the holes in the mask and the virtual holes in the telescope.
+This magnification will later be used to determine the available FOV.
+\begin{equation}
+    G_t = \frac{D_{holes}}{D_{MT}} = \frac{1}{47.5} = 0.0211
+\end{equation}
+\textbf{\textcolor{red}{Truc du sigma}}
+\newline
+Once the $\sigma_T$ is known, the fov as seen through the telescope can be determined. In equation \ref{eq:FOV_T}, $D_S$ is the diameter
+of the sunspots to be measured (20").
+\begin{equation}\label{eq:FOV_T}
+    FOV_T = 6 * \sigma_T + D_S
+\end{equation}
+Once the FOV seen by the telescope is known, this parameter must be transferred to the mask.
+\begin{equation}
+    FOV_M = FOV_T * G_t^{-1}
+\end{equation}
+This FOV will be converted into a radiant and can then be transferred to the CMOS sensor
+using the lens focal length ($F$) determined in section \ref{sec:Opti_Lens}.
+\begin{equation}
+    FOV_S = FOV_M * F
+\end{equation}
+Finally, the three elements listed at the beginning of this section can be calculated.
+\begin{itemize}
+    \item ballbalblalblalba
+          \begin{equation}
+              pixel_{max} = \frac{\lambda*F}{2*D_{holes}}
+          \end{equation}
+    \item blablalballbaa
+\end{itemize}
+
 %====================================================================================================
 %====================================================================================================
 % Lens selection
 %====================================================================================================
 %====================================================================================================
-\section{Lens selection}
+\section{Lens selection}\label{sec:Opti_Lens}
 balblalbalblalab
 %====================================================================================================
 %====================================================================================================
