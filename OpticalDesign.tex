@@ -164,10 +164,24 @@ Once the X,Y coordinates of the screen's inputs are known, and with the lens's o
 blblalbalblabl
 %====================================================================================================
 %====================================================================================================
+% Mask sizing
+%====================================================================================================
+%====================================================================================================
+\section{Mask sizing}\label{sec:Opti_Couille}
+In order to know the mask size required to sample the image, we first need to know the size of the telescope's exit pupil.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{assets/figures/Optical Design/Design_Mask.png}
+    \caption{Selected camera}
+    \label{fig:Opti_Mask_Diagram}
+\end{figure}
+%====================================================================================================
+%====================================================================================================
 % Camera specifications
 %====================================================================================================
 %====================================================================================================
-\section{Camera specifications}
+\section{Camera specifications}\label{sec:Opti_Cam}
+\subsection{Limitations}
 In order to determine which sensor will have the right specifications for this application,
 several elements will need to be calculated :
 \begin{itemize}
@@ -207,32 +221,182 @@ using the lens focal length ($F$) determined in section \ref{sec:Opti_Lens}.
 \end{equation}
 Finally, the three elements listed at the beginning of this section can be calculated.
 \begin{itemize}
-    \item ballbalblalblalba
+    \item The maximum pixel size of the CMOS sensor must respect Niquist's theorem.
           \begin{equation}
               pixel_{max} = \frac{\lambda*F}{2*D_{holes}}
           \end{equation}
-    \item blablalballbaa
+    \item The number of pixels in an image will be :
+          \begin{equation}
+              N_{p} = \frac{FOV_S}{pixel_{max}}
+          \end{equation}
+    \item The minimum screen size required to view the 2 images (assuming they are centered) is :
+          \begin{equation}
+              Screen_{Size} = (\frac{H}{pixel_{max}}+ N_{p}*2);
+          \end{equation}
 \end{itemize}
-
+For the 3 points above, calculations were performed using matlab (Appendix \ref{App:Matlab}) and worst-case scenarios
+were considered. Calculations were made for a value of $r_0$ ranging from 0.02m to 0.2m.
+Based on these calculations, the following results were obtained:
+\begin{itemize}
+    \item Maximum pixel size : 15 [$\mu$m]
+    \item Minimum screen size : 164 [pixel]
+    \item Size of one image : 17 [pixel]
+\end{itemize}
+\subsection{Choice}
+With the specifications calculated above and after some research, the camera shown in figure 2 was chosen.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.35]{assets/figures/Mechanical Design/Camera.png}
+    \caption{Selected camera}
+    \label{fig:Camera2}
+\end{figure}
+The camera in figure \ref{fig:Camera2} is an Allied vision camera (Alvium 1800 U-052m). This camera is
+equipped with a monochromatic CMOS sensor (Sony IMX426). Its pixels are 9x9 [$mu$m], its size is 816x624 [pixel]
+and this camera is capable of exposure times from 21 $mu$s to 10s.
+\bigbreak
+With this camera, an image will take up around 28 pixels and the total image will be 250 pixels long.
+If the total image is centered on the sensor, camera orientation will have no effect on the measurement.
+The image should always be on the sensor.
 %====================================================================================================
 %====================================================================================================
 % Lens selection
 %====================================================================================================
 %====================================================================================================
+\newpage
 \section{Lens selection}\label{sec:Opti_Lens}
-balblalbalblalab
+The choice of lens is one of the critical elements of this project. Several parameters need to be taken
+into account, such as \gls{PSF} on the focal plane, Zernik polynomials and the correct Strehl ratio.
+The validation method for the use of a certain lens was a simulation on Zemax.
+In order to best reproduce the system, an angle on the incident beam had to be added.
+This angle corresponds to the beam deflection produced by the prism. The wavelength will also have to be modified to work at 600nm.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{assets/figures/Optical Design/Zemax_RayTrace.png}
+    \caption{Drawing of lens rays on Zemax}
+    \label{fig:Opti_LensRayTrace}
+\end{figure}
+In order to maximize the system's critical parameters, it is essential to optimize the system when
+the fields have not yet been introduced.
+Once the system has been optimized, the beam angle can be entered in the "Data field editor".
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{assets/figures/Optical Design/Zemax_FieldEditor.png}
+    \caption{zemax parameter window : "Field data Editor"}
+    \label{fig:Opti_FieldZemax}
+\end{figure}
+Now that the parameters have been entered, all that remains is to analyze the results.
+\newpage
+\subsection{Point Spread Function}
+The \gls{PSF} is the most critical element of optical design. It determines the image quality of the lens.
+A good \gls{PSF} is characterized by a large peak centered in position (0,0) and a low spread of the function.
+\newline
+In Figure \ref{fig:Opti_ZemaxPSF}, the \gls{PSF} has a correct shape and its maximum rises to 0.875. This \gls{PSF} is completely acceptable
+for the DIMM lens. It is that of the lens chosen (F=50mm) with a beam incidence angle of 1$^{\circ}$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{assets/figures/Optical Design/Zemax_PSF.png}
+    \caption{PSF and Spot diagram for the chosen lens}
+    \label{fig:Opti_ZemaxPSF}
+\end{figure}
+\subsection{Strehl ratio}
+The Strehl ratio compares the peak intensity of the actual focused image to that of an ideal, 
+diffraction-limited image formed by a perfect optical system. A Strehl ratio of 1 indicates perfect performance, 
+while lower values indicate the presence of aberrations.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{assets/figures/Optical Design/Zemax_Strehl.png}
+    \caption{Strehl lens ratio}
+    \label{fig:Opti_ZemaxStrehl}
+\end{figure}
+In this case, the strehl ratio is 0.878. This indicates that the lens, in its configuration, 
+has the necessary parameters for this application. \textbf{\textcolor{red}{A finir}}
+\newpage
+\subsection{Zernik polynomials}
+Zernike polynomials define the output wavefront of a system. Each coefficient of this polynomial refers to an
+aberration in the optical system. The aim is to minimize these polynomials to obtain, in the best (theoretical)
+case, an image that is completely identical to the object. For this project, the polynomials that must be as small as possible are :
+\begin{itemize}
+    \item \textbf{2-3} : Tilt : The higher this parameter, the greater the tilt on the X and Y axes. Too high a tilt will distort
+          the image and sunspot detection may not work.
+    \item \textbf{4}   : Defocus : It happens when an optical system fails to converge light rays onto a single point. The higher the
+          defocus setting, the greater the contrast between blur and sharpness.
+    \item \textbf{5-6} : Astigmatism : This is the most important parameter in this project. Astigmatism compromises image
+          sharpness when the beams are far from the optical axis. The appearance of a blur on the final image could compromise the
+          measurement. The image would be averaged, in which case the seeing would not be fixed.
+    \item \textbf{7-8} : Sphericity : Spherical aberration is an optical aberration that occurs when a lens or mirror fails to focus all
+          incoming light rays to a single point. It causes blurring and loss of sharpness in the resulting image. Once again, if the measurement
+          is blurred, this will result in a seeing that has not been fixed and therefore an inaccurate measurement.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.9]{assets/figures/Optical Design/Zemax_Zernik.png}
+    \caption{Lens zernik polynomials}
+    \label{fig:Opti_ZemaxZernik}
+\end{figure}
+\textbf{\textcolor{red}{Expliquer pourquoi c'est bien}}
+\subsection{Final choice}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{assets/figures/Mechanical Design/Lentille.png}
+    \caption{Lens choosed}
+    \label{fig:Opti_Lens}
+\end{figure}
+The lens chosen for the system is the one shown in figure \ref{fig:Opti_Lens}, and was selected in combination with all
+the other elements as explained in section \ref{sec:Opti_Limit}. The lens has the following characteristics:
+\begin{itemize}
+    \item Type: Achromatic Lens
+    \item Effective Focal Length EFL (mm): 50.00
+    \item Wavelength Range (nm): 425 - 675
+    \item Coating Specification: Ravg ≤0.4\% @ 425 - 675nm
+\end{itemize}
 %====================================================================================================
 %====================================================================================================
 % Prism selection
 %====================================================================================================
 %====================================================================================================
-\section{Prism selection}
-blalbalblalb
+\newpage
+\section{Prism selection}\label{sec:Opti_Prism}
+As far as the prism is concerned, the limiting factor is the beam exit angle. This angle will influence the choice of lens.
+\newline
+The primary objective was to create a custom-made prism in the shape of a square-based pyramid. This would have made it
+possible to produce 4 images and thus refine the measurement. After several requests for bids, it turned out that a custom-made
+square-based prism was too expensive ($\approx$ 4000 CHF). After that, it was decided to re-tender with a 2-sided prism, but the price
+didn't come down. The final solution was to buy a commercially available prism, produced in large numbers. However, this type of
+prism is only available in circular format. We therefore had to find a way of adapting and mounting it (Section \ref{sec:prisms}).
+\bigbreak
+The search for prisms was therefore carried out on the Edmund optics website.
+This supplier offers a wide range of prisms with treatments equivalent to the lens treatment.
+Available prisms offer beam exit angles ranging from 0.5$^{\circ}$ to 15$^{\circ}$.
+\newline
+As stated in section \ref{sec:Opti_Lens}, the prism must produce an angle of 1$^{\circ}$ at its exit to correpsond with the
+choice of lens. The prism shown in figure 2 was therefore chosen.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{assets/figures/Mechanical Design/Prisme_obtenu.png}
+    \caption{Prism choosed}
+    \label{fig:Opti_Prism}
+\end{figure}
+The prism chosen has the following characteristics:
+\begin{itemize}
+    \item Wavelength Range (nm): 425 - 675
+    \item Surface Flatness (P-V): λ/10
+    \item Ray Deviation @ 633nm ($^{\circ}$): 1.00
+    \item Substrate: N-BK7
+    \item Wedge Angle: 1$^{\circ}$ 56'
+\end{itemize}
 %====================================================================================================
 %====================================================================================================
 % Limitation
 %====================================================================================================
 %====================================================================================================
+\newpage
 \section{Limitations of the system}\label{sec:Opti_Limit}
-Parler du ratio du masque etc
+Parler du ratio du masque etc \newline
 Parler du filtre solaire pour le télescope
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.25]{assets/figures/Optical Design/Diagramme_Limitation.png}
+    \caption{Component selection diagram}
+    \label{fig:Opti_DiagrammChoices}
+\end{figure}
