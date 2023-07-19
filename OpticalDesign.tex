@@ -171,10 +171,73 @@ blblalbalblabl
 In order to know the mask size required to sample the image, we first need to know the size of the telescope's exit pupil.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.55]{assets/figures/Optical Design/Design_Mask.png}
+    \includegraphics[scale=0.9]{assets/figures/Optical Design/Design_Mask.png}
     \caption{Selected camera}
     \label{fig:Opti_Mask_Diagram}
 \end{figure}
+Figure \ref{fig:Opti_Mask_Diagram} shows a diagram of the laboratory telescope with its occular.
+To determine the position and size of the exit pupil, the following parameters are required:
+\begin{itemize}
+    \item Aperture diameter (D) : 305mm
+    \item Focal length (M1) : -645.2mm
+    \item Focal lenght (M2) : 170mm
+    \item Focal lenght (Occular) : 26mm
+\end{itemize}
+The calculation is divided into 3 parts (Object to M1, M1 to M2 and M2 to occular).
+To begin with, you need to place the $p_o$ point on the telescope's entrance pupil (Schmidt's Blade) :
+\begin{equation}
+    p_o^{M1} = -(12+510) = -522mm
+\end{equation}
+The image plane $p_i$ can then be easily calculated using the law of conjugate foci (\ref{eq:Conjugate}) :
+\begin{equation}
+    p_i^{M1} = \left(\frac{1}{f^{M1}}-\frac{1}{p_o^{M1}}\right)^{-1} = 2734 mm
+\end{equation}
+Using $p_o$ and $p_i$, the transverse magnification of the first phase can now be determined :
+\begin{equation}
+    G_t^{M1} = -\frac{p_i^{M1}}{p_o^{M1}} = 5.24
+\end{equation}
+For the second phase, you have to start from M1 and go on to M2. To do this, the same calculations have been performed, but this time with :
+\begin{equation}
+    p_o^{M2} = -(510 + p_i^{M1}) = -3244mm
+\end{equation}
+With the focal length of M2 and law (\ref{eq:Conjugate}), the second $p_i$ can be found :
+\begin{equation}
+    p_i^{M2} = \left(\frac{-1}{f^{M2}}-\frac{1}{p_o^{M2}}\right)^{-1} = 162 mm
+\end{equation}
+Then calculate the magnification of the second phase :
+\begin{equation}
+    G_t^{M2} = -\frac{p_i^{M2}}{p_o^{M2}} = 0.05
+\end{equation}
+For the last phase, using the same calculations and posing :
+\begin{equation}
+    p_o^{OC} = -(510 + p_i^{M2} + 150 + f^{OC}) = -848mm
+\end{equation}
+The following results for $p_i$ and $G_t$ are :
+\begin{equation}
+    p_i^{OC} = \left(\frac{-1}{f^{OC}}+\frac{1}{p_o^{OC}}\right)^{-1} = 26.82 mm
+\end{equation}
+\begin{equation}
+    G_t^{OC} = -\frac{p_i^{OC}}{p_o^{OC}} = 0.03
+\end{equation}
+Now that all the magnifications are known, the total magnification of the telescope and its occular can be calculated :
+\begin{equation}
+    G_t^{Tot} = G_t^{M1}*G_t^{M2}*G_t^{OC} = \underline{0.008}
+\end{equation}
+Finally, thanks to the Schmidt blade, which acts as the system's entrance pupil, and the total magnification,
+the diameter of the exit pupil can be calculated:
+\begin{equation}
+    D_p = G_t^{Tot} * D = \underline{2.51mm}
+\end{equation}
+\bigbreak
+If the ratio between the diameter of the holes and the distance between them is respected, each hole should have a diameter of :
+\begin{equation}\label{eq:Opti_ratio}
+    D_{Holes} = \frac{D_p}{6} = \underline{0.42mm}
+\end{equation}
+To ensure that the holes are not on the edge of the pupil, their diameter is set at 0.35mm. With a 0.35mm hole, the distance
+between the centers of these 2 holes will be :
+\begin{equation}
+    d = 5*D_{Holes} = \underline{1.75mm}
+\end{equation}
 %====================================================================================================
 %====================================================================================================
 % Camera specifications
@@ -299,8 +362,8 @@ for the DIMM lens. It is that of the lens chosen (F=50mm) with a beam incidence 
     \label{fig:Opti_ZemaxPSF}
 \end{figure}
 \subsection{Strehl ratio}
-The Strehl ratio compares the peak intensity of the actual focused image to that of an ideal, 
-diffraction-limited image formed by a perfect optical system. A Strehl ratio of 1 indicates perfect performance, 
+The Strehl ratio compares the peak intensity of the actual focused image to that of an ideal,
+diffraction-limited image formed by a perfect optical system. A Strehl ratio of 1 indicates perfect performance,
 while lower values indicate the presence of aberrations.
 \begin{figure}[H]
     \centering
@@ -308,8 +371,8 @@ while lower values indicate the presence of aberrations.
     \caption{Strehl lens ratio}
     \label{fig:Opti_ZemaxStrehl}
 \end{figure}
-In this case, the strehl ratio is 0.878. This indicates that the lens, in its configuration, 
-has the necessary parameters for this application. \textbf{\textcolor{red}{A finir}}
+In this case, the strehl ratio is 0.878. This indicates that the lens, in its configuration,
+has the necessary parameters for this application.
 \newpage
 \subsection{Zernik polynomials}
 Zernike polynomials define the output wavefront of a system. Each coefficient of this polynomial refers to an
@@ -391,9 +454,35 @@ The prism chosen has the following characteristics:
 %====================================================================================================
 \newpage
 \section{Limitations of the system}\label{sec:Opti_Limit}
-Parler du ratio du masque etc \newline
-Parler du filtre solaire pour le télescope
-
+\subsection{Theoretical ratio for mask}
+As stated in the ESO article on DIMM \cite{DIMM_ESO}, the ratio between the diameter of the holes and their spacing must be 5 :
+\begin{equation}
+    S = D/d = 5
+\end{equation}
+The mask is dimensioned in section \ref{sec:Opti_Couille} and this ratio has been used in equation \ref{eq:Opti_ratio}.
+\subsection{Solar filter}
+If sunspot measurements are to be carried out, the telescope will need to be fitted with a sun filter. This filter will
+absorb and reflect UV radiation from the source. Using a filter will prevent damage to the telescope and the DIMM attached to it.
+The filter used (figure \ref{fig:Opti_Filter}) will be of the same brand as the telescope (MAEDE). It has been specially made for this one.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{assets/figures/Optical Design/Solar_filter.png}
+    \caption{Solar filter}
+    \label{fig:Opti_Filter}
+\end{figure}
+\subsection{Design method}
+The overall dimensioning of the optical system can be realized as a kind of loop, where each
+parameter is linked to another component of the system. As shown in Figure \ref{fig:Opti_DiagrammChoices} :
+\begin{itemize}
+    \item The diameter of the holes on the mask and their spacing will have a bearing on the distance available between the prisms.
+    \item The angle of incidence of the prisms will have a bearing on the total length of the system, as well as the \Gls{PSF} of the lens.
+    \item The focal length of the lens will be related to the overall length of the system, as will the minimum pixel size on the CMOS sensor.
+\end{itemize}
+Each element will therefore have an influence on a component of the system. The aim is to find the perfect combination of efficiency,
+compactness and reliability. If all the components fit together, but it's impossible to find the right pixel size,
+you'll have to start all over again.
+Numerous tests and simulations were carried out to find the right combination. However, once the right combination has been found,
+it is necessary to check that the components are available on the market, to avoid incurring additional costs.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.25]{assets/figures/Optical Design/Diagramme_Limitation.png}
