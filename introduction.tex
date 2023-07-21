@@ -7,21 +7,31 @@ This chapter introduces the context and generalities relative to the work.
 % Context
 %====================================================================================================
 \section{Context}
-The Institute for Solar Reasearch (\Gls{IRSOL}) can be found in Locarno Switzerland. At the time of writing and according to the observatory, their reasearch activities focus on :
+This bachelor's thesis was carried out to support the research of the institute \Gls{IRSOL}. \newline
+<<\Gls{IRSOL} is a research institute dependent on a foundation of the same name and affiliated to Università della Svizzera italiana.>>$^1$
+The institute is based above Locarno in Ticino. \newline
+Their research is mainly based on the measurement and characterization of the sun, and specializes in :
 <<
 \begin{enumerate}
     \item observational spectropolarimetry and instrument development,
     \item theoretical modeling of the generation and transfer of polarized radiation,
     \item numerical simulation of the solar atmosphere and numerical radiative transfer.
-\end{enumerate}>>\footnote{\cite{IRSOL_research} IRSOL, 2023. RESEARCH ACTIVITY, Research Activity at IRSOL. [Online]. [Accessed on 24.03.2023]. Available at: https://www.irsol.usi.ch/research/research-activity/}
+\end{enumerate}>>\footnote{\cite{IRSOL_research} IRSOL, 2023. RESEARCH ACTIVITY, Research Activity at IRSOL. [Online]. [Accessed on 21.07.2023]. Available at: https://www.irsol.usi.ch/research/research-activity/}
+
+The problem is that the institute is looking to expand its equipment in order to develop their research.
+However, it is necessary to know the limitations of the measuring instruments, as well as the quality of the observation site.
+Their first development objective would be to integrate an adaptive optics system \acrfull{ao}.
+\newline
 In odrer to asses the usefullness of adaptative optics two Bachelor thesis are conducted.
 \begin{enumerate}
-    \item "Analyseur de la turbulence optique pour le télescope solaire IRSOL" (Optical turbulence analyser for \Gls{IRSOL}'s solar telescope)
-    \item "Le mien" (this thesis)
+    \item (Celui de DOM)
+    \item This thesis : "Analyseur de la turbulence optique pour le télescope solaire IRSOL" (Optical turbulence analyser for \Gls{IRSOL}'s solar telescope)
 \end{enumerate}
-The 1\textsuperscript{st} one aims to analyse optical turbulence on site. The 2\textsuperscript{nd} one is meant to measure the optical imperfections of the telescope itsef and maybe of other optical equipment.
+The 1\textsuperscript{st} one is meant to measure the optical imperfections of the telescope itself and maybe of other optical equipment.
+The 2\textsuperscript{nd} one aims to analyse optical turbulence on site.
 
-Once both studies are concluded, the laboratory will be able to determine whether the use of \acrfull{ao} makes sense or not. Should teh atmospheric turbulencec have a greater impact on the image than the telescope's imperfections, A nes study on the implementation of \acrshort{ao} will be conducted. This study is out of the scope of either thesis.
+Once these two projects are completed, IRSOL will be able to determine whether the acquisition of an \acrfull{ao} makes sense
+and they will also be able to quantify the limiting element to their research (the observation site or the telescope).
 
 
 
@@ -29,7 +39,23 @@ Once both studies are concluded, the laboratory will be able to determine whethe
 % Issue at hand
 %====================================================================================================
 \section{Issue at hand}
+In a discussion with the institute, it was said: "Seeing evolves over the course of the day.
+When the sun rises, the ground warms up and the heat rises. This is when seeing is at its worst.
+But when the sun goes down, there's a moment when seeing is almost non-existent because the air currents freeze before going down again."
+\bigbreak
+The issue at hand is that the quality of the observation site is known but cannot be quantified.
+The aim of this study is to quantify the quality of their observation site.
+The instrument used will be the DIMM \textbf{\textcolor{red}{RAJOUTER GLOSSAIRE DIMM}} (Differential image motion monitor).
 
+A DIMM \textbf{\textcolor{red}{RAJOUTER GLOSSAIRE DIMM}} works as follows (simplified version) :
+\begin{enumerate}
+    \item Capture an image masked by two small holes.
+    \item Tracking the movement of these images.
+    \item Measurement of the standard deviation of this movement.
+    \item Conversion of previous result into turbulent layer thickness.
+\end{enumerate}
+The aim will be to play with the exposure time to determine the location of the image center, but also to freeze the turbulence.
+\bigbreak
 The issue at hand is that the the teslescope has some unkown optical imperfecitons. This study aims to measure them.
 
 The short methodology explanation is as follows:

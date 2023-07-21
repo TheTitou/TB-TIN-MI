@@ -162,11 +162,29 @@ Once the X,Y coordinates of the screen's inputs are known, and with the lens's o
 \newpage
 \section{Conjugation matrix with matlab}
 blblalbalblabl
+\section{Limitations of the system}\label{sec:Opti_Limit}
+\subsection{Theoretical ratio for mask}
+As stated in the ESO article on DIMM \cite{DIMM_ESO}, the ratio between the diameter of the holes and their spacing must be 5 :
+\begin{equation}\label{eq:Opti_Ratio}
+    S = D/d = 5
+\end{equation}
+The mask is dimensioned in section \ref{sec:Opti_Couille} and this ratio has been used in equation \ref{eq:Opti_ratio}.
+\subsection{Solar filter}
+If sunspot measurements are to be carried out, the telescope will need to be fitted with a sun filter. This filter will
+absorb and reflect UV radiation from the source. Using a filter will prevent damage to the telescope and the DIMM attached to it.
+The filter used (figure \ref{fig:Opti_Filter}) will be of the same brand as the telescope (MAEDE). It has been specially made for this one.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{assets/figures/Optical Design/Solar_filter.png}
+    \caption{Solar filter}
+    \label{fig:Opti_Filter}
+\end{figure}
 %====================================================================================================
 %====================================================================================================
 % Mask sizing
 %====================================================================================================
 %====================================================================================================
+\newpage
 \section{Mask sizing}\label{sec:Opti_Couille}
 In order to know the mask size required to sample the image, we first need to know the size of the telescope's exit pupil.
 \subsection{Sizing of exit pupil}
@@ -230,7 +248,7 @@ the diameter of the exit pupil can be calculated:
     D_p = G_t^{Tot} * D = \underline{2.51mm}
 \end{equation}
 \subsection{Practical validation}
-A practical validation has been carried out. However, the object could not be infinite, as the tests were carried out in the school. 
+A practical validation has been carried out. However, the object could not be infinite, as the tests were carried out in the school.
 To determine the diameter of the exit pupil, we had to :
 \begin{enumerate}
     \item Set up an "artificial" star as far away from the telescope as possible.
@@ -239,12 +257,12 @@ To determine the diameter of the exit pupil, we had to :
     \item Place a grid on the back of the telescope and position it so that the image is sharp (pupil position).
     \item Measure pupil diameter.
 \end{enumerate}
-These tests gave a pupil diameter of $3 \pm 1$mm. The result is close to what was expected and, taking into account 
+These tests gave a pupil diameter of $3 \pm 1$mm. The result is close to what was expected and, taking into account
 the uncertainty of the measurement, appears to be fair.
 \newline
 \textbf{\textcolor{red}{Ajouter image}}
 \subsection{Mask sizing}
-If the ratio between the diameter of the holes and the distance between them is respected, each hole should have a diameter of :
+If the ratio between the diameter of the holes and the distance between them is respected (\ref{eq:Opti_Ratio}), each hole should have a diameter of :
 \begin{equation}\label{eq:Opti_ratio}
     D_{Holes} = \frac{D_p}{6} = \underline{0.42mm}
 \end{equation}
@@ -253,7 +271,6 @@ between the centers of these 2 holes will be :
 \begin{equation}
     d = 5*D_{Holes} = \underline{1.75mm}
 \end{equation}
-\textbf{\textcolor{red}{Ajouter image}}
 %====================================================================================================
 %====================================================================================================
 % Camera specifications
@@ -269,18 +286,12 @@ several elements will need to be calculated :
     \item The size the image will occupy on the sensor
 \end{itemize}
 \bigbreak
-To begin with, the mask must be positioned at the telescope entrance. To do this, the relationship between
-the holes and their spacing is used (:::). A virtual mask is placed over the telescope entrance,
-with a 20mm margin taken on the sides (10mm each). Using these elements, the diameter of the holes on the
-telescope can be determined by the equation \ref{eq:DMT} with $D_{MT}$ = diameter of a hole on the telescope entrance,
-$D$ = diameter of the telescope, $margin$ = 20mm, $ratio$ = ratio between the holes and their spacing.
+To determine the size of the screen and the pixels required for the image, the previously 
+calculated magnification and hole size should be used. 
+The aim is to transfer the mask to the front of the telescope, so as to know the "virtual" size of the mask as 
+seen through the telescope.
 \begin{equation}\label{eq:DMT}
-    D_{MT} = \frac{(D-margin)}{(ratio + 1)} = \frac{(305-20)}{5+1} = 47.5 mm
-\end{equation}
-Now we need to know the transverse magnification ($G_t$) between the holes in the mask and the virtual holes in the telescope.
-This magnification will later be used to determine the available FOV.
-\begin{equation}
-    G_t = \frac{D_{holes}}{D_{MT}} = \frac{1}{47.5} = 0.0211
+    D_{MT} = \frac{D_{holes}}{G_t} = \frac{0.35}{0.0082} = 42.7mm
 \end{equation}
 \textbf{\textcolor{red}{Truc du sigma}}
 \newline
@@ -469,23 +480,7 @@ The prism chosen has the following characteristics:
 %====================================================================================================
 %====================================================================================================
 \newpage
-\section{Limitations of the system}\label{sec:Opti_Limit}
-\subsection{Theoretical ratio for mask}
-As stated in the ESO article on DIMM \cite{DIMM_ESO}, the ratio between the diameter of the holes and their spacing must be 5 :
-\begin{equation}
-    S = D/d = 5
-\end{equation}
-The mask is dimensioned in section \ref{sec:Opti_Couille} and this ratio has been used in equation \ref{eq:Opti_ratio}.
-\subsection{Solar filter}
-If sunspot measurements are to be carried out, the telescope will need to be fitted with a sun filter. This filter will
-absorb and reflect UV radiation from the source. Using a filter will prevent damage to the telescope and the DIMM attached to it.
-The filter used (figure \ref{fig:Opti_Filter}) will be of the same brand as the telescope (MAEDE). It has been specially made for this one.
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.4]{assets/figures/Optical Design/Solar_filter.png}
-    \caption{Solar filter}
-    \label{fig:Opti_Filter}
-\end{figure}
+
 \section{Design method}
 The overall dimensioning of the optical system can be realized as a kind of loop, where each
 parameter is linked to another component of the system. As shown in Figure \ref{fig:Opti_DiagrammChoices} :
