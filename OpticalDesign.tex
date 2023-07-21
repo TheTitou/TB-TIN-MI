@@ -169,6 +169,7 @@ blblalbalblabl
 %====================================================================================================
 \section{Mask sizing}\label{sec:Opti_Couille}
 In order to know the mask size required to sample the image, we first need to know the size of the telescope's exit pupil.
+\subsection{Sizing of exit pupil}
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.9]{assets/figures/Optical Design/Design_Mask.png}
@@ -228,7 +229,21 @@ the diameter of the exit pupil can be calculated:
 \begin{equation}
     D_p = G_t^{Tot} * D = \underline{2.51mm}
 \end{equation}
-\bigbreak
+\subsection{Practical validation}
+A practical validation has been carried out. However, the object could not be infinite, as the tests were carried out in the school. 
+To determine the diameter of the exit pupil, we had to :
+\begin{enumerate}
+    \item Set up an "artificial" star as far away from the telescope as possible.
+    \item Point the telescope at the star and install the occular.
+    \item Position your eye on the occular and adjust the telescope's focal length.
+    \item Place a grid on the back of the telescope and position it so that the image is sharp (pupil position).
+    \item Measure pupil diameter.
+\end{enumerate}
+These tests gave a pupil diameter of $3 \pm 1$mm. The result is close to what was expected and, taking into account 
+the uncertainty of the measurement, appears to be fair.
+\newline
+\textbf{\textcolor{red}{Ajouter image}}
+\subsection{Mask sizing}
 If the ratio between the diameter of the holes and the distance between them is respected, each hole should have a diameter of :
 \begin{equation}\label{eq:Opti_ratio}
     D_{Holes} = \frac{D_p}{6} = \underline{0.42mm}
@@ -238,6 +253,7 @@ between the centers of these 2 holes will be :
 \begin{equation}
     d = 5*D_{Holes} = \underline{1.75mm}
 \end{equation}
+\textbf{\textcolor{red}{Ajouter image}}
 %====================================================================================================
 %====================================================================================================
 % Camera specifications
@@ -470,7 +486,7 @@ The filter used (figure \ref{fig:Opti_Filter}) will be of the same brand as the 
     \caption{Solar filter}
     \label{fig:Opti_Filter}
 \end{figure}
-\subsection{Design method}
+\section{Design method}
 The overall dimensioning of the optical system can be realized as a kind of loop, where each
 parameter is linked to another component of the system. As shown in Figure \ref{fig:Opti_DiagrammChoices} :
 \begin{itemize}

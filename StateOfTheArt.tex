@@ -1,1 +1,37 @@
-This chapter goes over a few solutions that already exist. Each aspect of the
+The DIMM concept is well known in the world of astrophysics, and has already been implemented in several forms.
+However, most of the DIMMs produced refer to article \cite{DIMM_ESO}. Mr Sarazin and Mr Roddier have produced 
+a seeing monitor for ESO and describe it in this article.
+
+\section{Principle}
+The principle is the same as that described in section \ref{sec:Theo_DIMM}, with the light beam passing through a turbulent layer 
+before reaching the telescope. This beam is then masked, deflected by a prism and finally focused on a screen to produce 
+2 distinct images. In the next section, we'll be working out the seeing measurement algorithm. All the calculations involved 
+in determining seeing are listed and explained in article \cite{DIMM_ESO}.
+\section{Realization}
+When it comes to DIMM realizations, there are several variants :
+\begin{itemize}
+    \item Mask installed in front of the telescope pupil
+    \item Mask and prisms installed in front of the telescope pupil.
+    \item Mask and prisms installed after telescope (Mask on exit pupil)
+    \item Prism installed only for one of the masked beams.
+    \item Prism installed for 2 masked beams.
+\end{itemize}
+All these solutions have achieved results, but the methods of image processing and acquisition are never the same.
+\section{Alternative methods}
+There are several ways of measuring seeing other than DIMM. Some of these methods are listed below :
+\begin{itemize}
+    \item \textbf{Lucky imaging} : Lucky Imaging takes advantage of the fact that atmospheric turbulence changes 
+    rapidly over time. The technique involves capturing a large series of images very quickly, 
+    usually in a few milliseconds. This high frame rate enables us to freeze moments of less severe atmospheric 
+    turbulence and to reject images captured during moments of high turbulence. Once a clear image of the object 
+    has been recovered, instant seeing can be determined by taking further successive images, using the image 
+    obtained by Lucky imaging as a reference.
+    \item \textbf{LSIM (Least-Squares Image Motion)} : Unlike Lucky Imaging, which selects lucky images, the LSIM 
+    method uses all the images captured in the sequence to calculate a single global turbulence displacement, 
+    which it then corrects to improve the quality of the final image. As with the LSIM method, the seeing can then 
+    be determined using the reference image found with this method.
+    \item \textbf{Scintillation Analysis} : This method is more similar to DIMM. However, the sensor used is a photometer. 
+    This device is used to record the star's brightness at regular time intervals. This allows us to capture variations 
+    in brightness due to flicker. The flicker characteristics are compared with theoretical atmospheric models 
+    to obtain the current seeing.
+\end{itemize}
