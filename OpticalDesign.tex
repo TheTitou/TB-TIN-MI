@@ -156,12 +156,10 @@ Then, thanks to trigonometry (\ref{eq:Trigo_tan}), it is easy to find the coordi
 Once the X,Y coordinates of the screen's inputs are known, and with the lens's output coordinates, it's easy to plot them in matlab (Appendix \ref{App:Matlab}).
 %====================================================================================================
 %====================================================================================================
-% Matrice de conjuguaison avec matlab
+% Limitations
 %====================================================================================================
 %====================================================================================================
 \newpage
-\section{Conjugation matrix with matlab}
-blblalbalblabl
 \section{Limitations of the system}\label{sec:Opti_Limit}
 \subsection{Theoretical ratio for mask}
 As stated in the ESO article on DIMM \cite{DIMM_ESO}, the ratio between the diameter of the holes and their spacing must be 5 :
@@ -179,6 +177,20 @@ The filter used (figure \ref{fig:Opti_Filter}) will be of the same brand as the 
     \caption{Solar filter}
     \label{fig:Opti_Filter}
 \end{figure}
+\subsection{Fried parameter}
+In order to simplify subsequent calculations, there is a parameter that is constant and varies only with the wavelength that qualifies the turbulence.
+This parameter is called the Fried parameter ($r_0$).
+This parameter represents a scale of disturbance quality and is expressed in metres :
+\begin{itemize}
+    \item $r_0$ = 0.02 : \textbf{\textcolor{red}{Ajouter ici}}
+    \item $r_0$ = 0.05 : \textbf{\textcolor{red}{Ajouter ici}}
+    \item $r_0$ = 0.1 : \textbf{\textcolor{red}{Ajouter ici}}
+    \item $r_0$ = 0.2 : \textbf{\textcolor{red}{Ajouter ici}}
+\end{itemize}
+As the chosen working wavelength is 600nm, the Fried parameter must be adjusted to it as follows:
+\begin{equation}
+    r_{0-600nm} = r_0*\left(\frac{\lambda_{600}}{500*10^{-9}}\right)^{\frac{6}{5}}
+\end{equation}
 %====================================================================================================
 %====================================================================================================
 % Mask sizing
@@ -286,14 +298,18 @@ several elements will need to be calculated :
     \item The size the image will occupy on the sensor
 \end{itemize}
 \bigbreak
-To determine the size of the screen and the pixels required for the image, the previously 
-calculated magnification and hole size should be used. 
-The aim is to transfer the mask to the front of the telescope, so as to know the "virtual" size of the mask as 
+To determine the size of the screen and the pixels required for the image, the previously
+calculated magnification and hole size should be used.
+The aim is to transfer the mask to the front of the telescope, so as to know the "virtual" size of the mask as
 seen through the telescope.
 \begin{equation}\label{eq:DMT}
     D_{MT} = \frac{D_{holes}}{G_t} = \frac{0.35}{0.0082} = 42.7mm
 \end{equation}
 \textbf{\textcolor{red}{Truc du sigma}}
+\begin{equation}
+    \sigma_T = \sqrt{0.1698*\left(\frac{\lambda}{D_{MT}}\right)^2*\left(\frac{D_{MT}}{r_{0-600nm}}\right)^{\frac{5}{3}}}
+\end{equation}
+Then simply transform the $\sigma_t$ into arc seconds for the rest of the calculations.
 \newline
 Once the $\sigma_T$ is known, the fov as seen through the telescope can be determined. In equation \ref{eq:FOV_T}, $D_S$ is the diameter
 of the sunspots to be measured (20").
@@ -355,7 +371,7 @@ The image should always be on the sensor.
 \newpage
 \section{Lens selection}\label{sec:Opti_Lens}
 The choice of lens is one of the critical elements of this project. Several parameters need to be taken
-into account, such as \gls{PSF} on the focal plane, Zernik polynomials and the correct Strehl ratio.
+into account, such as \gls{PSF} on the focal plane, Zernike polynomials and the correct Strehl ratio.
 The validation method for the use of a certain lens was a simulation on Zemax.
 In order to best reproduce the system, an angle on the incident beam had to be added.
 This angle corresponds to the beam deflection produced by the prism. The wavelength will also have to be modified to work at 600nm.
@@ -401,7 +417,7 @@ while lower values indicate the presence of aberrations.
 In this case, the strehl ratio is 0.878. This indicates that the lens, in its configuration,
 has the necessary parameters for this application.
 \newpage
-\subsection{Zernik polynomials}
+\subsection{Zernike polynomials}
 Zernike polynomials define the output wavefront of a system. Each coefficient of this polynomial refers to an
 aberration in the optical system. The aim is to minimize these polynomials to obtain, in the best (theoretical)
 case, an image that is completely identical to the object. For this project, the polynomials that must be as small as possible are :
@@ -420,7 +436,7 @@ case, an image that is completely identical to the object. For this project, the
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.9]{assets/figures/Optical Design/Zemax_Zernik.png}
-    \caption{Lens zernik polynomials}
+    \caption{Lens zernike polynomials}
     \label{fig:Opti_ZemaxZernik}
 \end{figure}
 \textbf{\textcolor{red}{Expliquer pourquoi c'est bien}}
@@ -480,7 +496,6 @@ The prism chosen has the following characteristics:
 %====================================================================================================
 %====================================================================================================
 \newpage
-
 \section{Design method}
 The overall dimensioning of the optical system can be realized as a kind of loop, where each
 parameter is linked to another component of the system. As shown in Figure \ref{fig:Opti_DiagrammChoices} :
