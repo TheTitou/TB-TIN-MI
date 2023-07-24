@@ -94,8 +94,8 @@ To retrieve settings that have already been saved and load them into the camera,
 \end{verbatim}
 \newpage
 \subsection{Image capture}
-Before taking an image, you need to be able to set a format compatible with the compiler or 
-a library that will be used to create the software. To do this, the following code compares 
+Before taking an image, you need to be able to set a format compatible with the compiler or
+a library that will be used to create the software. To do this, the following code compares
 the camera's available formats with the compatible formats.
 \begin{verbatim}
     with Vimba.get_instance() as vimba:
@@ -116,7 +116,7 @@ the camera's available formats with the compatible formats.
     \caption{Compatible format results}
     \label{fig:Soft_Vimba_Format}
 \end{figure}
-Once the correct parameters have been displayed, simply call up this line of code, inserting the table cell corresponding 
+Once the correct parameters have been displayed, simply call up this line of code, inserting the table cell corresponding
 to the desired format (in this case, cell 0) :
 \begin{verbatim}
     cam.set_pixel_format(opencv_formats[0])
@@ -133,20 +133,72 @@ This function can be modified to suit individual requirements, and loops can be 
 \newpage
 \section{The software}
 \subsection{Principle}
+In order to be able to output an image result, some programming is required. To do this, the program can be divided into 3 parts:
+\begin{itemize}
+    \item User interface : This part is not mandatory, but it makes the system much easier to use. It was therefore decided
+          to include it in view of the system's extensive use. This part should include the entire measurement program,
+          calibration and updating of camera parameters, and feedback on the measurement and its progress.
+    \item Initialization : This program will initialize the system for future measurement.
+          It would be interesting to be able to skip the initialization if several measurements are carried out in succession.
+    \item Measurement : This is the system's key program. It performs the measurement and transforms the software data into user-readable data.
+\end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{assets/figures/Software/General.png}
     \caption{Software principle as seen by the user}
     \label{fig:Soft_General}
 \end{figure}
-\subsection{Initialisation}
+Figure \ref{fig:Soft_General} shows the application's general operating principle. This application may be updated and changes
+are to be expected after the first use in real conditions. It would also be interesting to work with potential future users
+to optimize it for their needs.
+\newpage
+\subsection{Initialization}
+The initialization program is essential for the measurement to run smoothly. It is also used to optimize the working
+time of the measurement program by cropping only the necessary areas of the image. The basic principle of this program
+can be seen in figure \ref{fig:Soft_Init}.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{assets/figures/Software/Initialization.png}
     \caption{Block diagram of the initialization function}
     \label{fig:Soft_Init}
 \end{figure}
+The initialization program performs the following steps :
+\begin{enumerate}
+    \item Camera connection
+    \item Load initialization parameters (e.g. longer exposure time)
+    \item Take several images to average out turbulence as far as possible (and as quickly as possible).
+    \item Image adjustment (e.g.: clear defaults, increase contrast, etc.)
+    \item Location of the 2 focal points of the image
+    \item Find the centroid of each area of interest.
+    \item Recover and save areas of interest for measurement (Crop image afterwards to reduce processing time)
+    \item Display centers of interest if required.
+\end{enumerate}
+The program principle is the same for all languages. However, for reasons of time, image processing methods and 
+software accessibility, the program has been written in Python.
+\newpage
 \subsection{Mesure}
 blblalbalblabl
+\newpage
 \subsection{User interface}
-balbalblaba
+To facilitate the use of the system, it was decided to create a user interface.
+This window will contain all the elements required to use the DIMM.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.85]{assets/figures/Software/GUI1.png}
+    \caption{User interface visualization}
+    \label{fig:Soft_GUI}
+\end{figure}
+The first version of the user interface is shown in Figure \ref{fig:Soft_GUI}.
+This application contains all options available for DIMM use :
+\begin{itemize}
+    \item "DIMM" page : This is the main part of the application. It allows you to select the measurement mode,
+          whether the measurement needs to be initialized, the location of the results file and the camera connection test.
+    \item "Graphs" page : This page will show the evolution of results over time.
+    \item "Camera settings" page : This part of the application performs exactly the same functions as the VIMBA application.
+          However, if parameters need to be adjusted in real time, it will be possible to modify them directly on the application.
+          You can also use this page to save or load parameter files on your computer.
+    \item "Output" page : This page will ensure that the image you have taken is the one you expected.
+          The first measurement will be displayed in this section so that you can debug the system in the event of an error,
+          or check the measurement if the result looks suspicious.
+    \item The "help" section contains instructions for setting up the system.
+\end{itemize}

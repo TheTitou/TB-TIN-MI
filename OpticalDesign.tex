@@ -1,4 +1,4 @@
-\section{Principe}
+\section{Principle}
 The principle of the optical design to be realized is schematized on the figure \ref{fig:OpticalPrincipe}.\bigbreak
 The output beam of the telescope must be made parallel before the system can be installed. Once the beam is parallel,
 a mask composed of 2 equal openings will limit it. This mask correspond to the entry of the system.\newline
@@ -182,10 +182,10 @@ In order to simplify subsequent calculations, there is a parameter that is const
 This parameter is called the Fried parameter ($r_0$).
 This parameter represents a scale of disturbance quality and is expressed in metres :
 \begin{itemize}
-    \item $r_0$ = 0.02 : \textbf{\textcolor{red}{Ajouter ici}}
-    \item $r_0$ = 0.05 : \textbf{\textcolor{red}{Ajouter ici}}
-    \item $r_0$ = 0.1 : \textbf{\textcolor{red}{Ajouter ici}}
-    \item $r_0$ = 0.2 : \textbf{\textcolor{red}{Ajouter ici}}
+    \item $r_0$ = 0.02 : poor
+    \item $r_0$ = 0.05 : good
+    \item $r_0$ = 0.1 : very-good
+    \item $r_0$ = 0.2 : excellent
 \end{itemize}
 As the chosen working wavelength is 600nm, the Fried parameter must be adjusted to it as follows:
 \begin{equation}
@@ -305,7 +305,8 @@ seen through the telescope.
 \begin{equation}\label{eq:DMT}
     D_{MT} = \frac{D_{holes}}{G_t} = \frac{0.35}{0.0082} = 42.7mm
 \end{equation}
-\textbf{\textcolor{red}{Truc du sigma}}
+In order to determine the size of the images that will appear on the screen, we need to simulate image perturbations through the mask.
+To do this, simply calculate the standard deviation of the deflection angle as a function of the perturbation:
 \begin{equation}
     \sigma_T = \sqrt{0.1698*\left(\frac{\lambda}{D_{MT}}\right)^2*\left(\frac{D_{MT}}{r_{0-600nm}}\right)^{\frac{5}{3}}}
 \end{equation}
@@ -325,6 +326,7 @@ using the lens focal length ($F$) determined in section \ref{sec:Opti_Lens}.
 \begin{equation}
     FOV_S = FOV_M * F
 \end{equation}
+\newpage
 Finally, the three elements listed at the beginning of this section can be calculated.
 \begin{itemize}
     \item The maximum pixel size of the CMOS sensor must respect Niquist's theorem.
@@ -435,7 +437,7 @@ case, an image that is completely identical to the object. For this project, the
 \end{itemize}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.9]{assets/figures/Optical Design/Zemax_Zernik.png}
+    \includegraphics[scale=0.7]{assets/figures/Optical Design/Zernike_Standard.png}
     \caption{Lens zernike polynomials}
     \label{fig:Opti_ZemaxZernik}
 \end{figure}
