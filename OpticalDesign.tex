@@ -162,14 +162,14 @@ Once the X,Y coordinates of the screen's inputs are known, and with the lens's o
 \newpage
 \section{Limitations of the system}\label{sec:Opti_Limit}
 \subsection{Theoretical ratio for mask}
-As stated in the ESO article on DIMM \cite{DIMM_ESO}, the ratio between the diameter of the holes and their spacing must be 5 :
+As stated in the ESO article on \Gls{DIMM} \cite{DIMM_ESO}, the ratio between the diameter of the holes and their spacing must be 5 :
 \begin{equation}\label{eq:Opti_Ratio}
     S = D/d = 5
 \end{equation}
 The mask is dimensioned in section \ref{sec:Opti_Couille} and this ratio has been used in equation \ref{eq:Opti_ratio}.
 \subsection{Solar filter}
 If sunspot measurements are to be carried out, the telescope will need to be fitted with a sun filter. This filter will
-absorb and reflect UV radiation from the source. Using a filter will prevent damage to the telescope and the DIMM attached to it.
+absorb and reflect UV radiation from the source. Using a filter will prevent damage to the telescope and the \Gls{DIMM} attached to it.
 The filter used (figure \ref{fig:Opti_Filter}) will be of the same brand as the telescope (MAEDE). It has been specially made for this one.
 \begin{figure}[H]
     \centering
@@ -307,7 +307,7 @@ seen through the telescope.
 \end{equation}
 In order to determine the size of the images that will appear on the screen, we need to simulate image perturbations through the mask.
 To do this, simply calculate the standard deviation of the deflection angle as a function of the perturbation:
-\begin{equation}
+\begin{equation}\label{eq:Opti_Sigma}
     \sigma_T = \sqrt{0.1698*\left(\frac{\lambda}{D_{MT}}\right)^2*\left(\frac{D_{MT}}{r_{0-600nm}}\right)^{\frac{5}{3}}}
 \end{equation}
 Then simply transform the $\sigma_t$ into arc seconds for the rest of the calculations.
@@ -399,7 +399,7 @@ The \gls{PSF} is the most critical element of optical design. It determines the 
 A good \gls{PSF} is characterized by a large peak centered in position (0,0) and a low spread of the function.
 \newline
 In Figure \ref{fig:Opti_ZemaxPSF}, the \gls{PSF} has a correct shape and its maximum rises to 0.875. This \gls{PSF} is completely acceptable
-for the DIMM lens. It is that of the lens chosen (F=50mm) with a beam incidence angle of 1$^{\circ}$.
+for the \Gls{DIMM} lens. It is that of the lens chosen (F=50mm) with a beam incidence angle of 1$^{\circ}$.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{assets/figures/Optical Design/Zemax_PSF.png}

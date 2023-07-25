@@ -27,20 +27,20 @@ In these 2 cases, the number of images to be used or the exposure time required 
 be determined during the initial tests. If turbulence is not properly averaged, aberrant results may appear.
 \subsection{Choices}
 \subsubsection{measurement method}
-The software will feature both methods of use. However, the pre-capture method with Vimba software will not yet be implemented in its first version. 
+The software will feature both methods of use. However, the pre-capture method with Vimba software will not yet be implemented in its first version.
 The addition of this possibility could be agreed at a later date if there is a real interest.
 \subsubsection{Initialization}
 The chosen initialization method is to take several images with minimal pause time. \newline
-Using a longer pause time could result in unwanted elements appearing in the image. 
-What's more, the images used during initialization could be reused for measurement. The basic principle of initialization is : 
+Using a longer pause time could result in unwanted elements appearing in the image.
+What's more, the images used during initialization could be reused for measurement. The basic principle of initialization is :
 \begin{itemize}
     \item Take \textit{X} images to average turbulence.
     \item Recognition of centers of interest.
     \item Localization of image centers.
     \item Recovering the size of the centers of interest for cropping during measurement.
 \end{itemize}
-The number of images to be taken for the centroid to be as accurate as possible will be determined during testing. 
-If the disturbance is measured on a star, it is possible to take images in an automated way until the average image 
+The number of images to be taken for the centroid to be as accurate as possible will be determined during testing.
+If the disturbance is measured on a star, it is possible to take images in an automated way until the average image
 is as circular as possible (the star would have been deviated at any point internal to the turbulence).
 \subsubsection{Measurement}
 The measurement program will be simple in principle. However, when image processing is involved in a process, the main issue is reliability.
@@ -55,7 +55,7 @@ The measurement program must :
     \item Calculate the variance of centroid deviations
     \item Transform value into Fried parameter
 \end{itemize}
-As stated at the beginning of this section, image processing is a very sensitive element in the program. To achieve this, 
+As stated at the beginning of this section, image processing is a very sensitive element in the program. To achieve this,
 multiple tests will have to be carried out in order to certify the robustness of its use.
 %====================================================================================================
 % Vimba software
@@ -93,7 +93,7 @@ Before using the camera with the API, the code must call the procedure that simu
 In the code above, the "cam" structure is the element to be called in order to access all the camera parameters.
 With this structure, image parameters, setups and access to images can be carried out.
 \subsection{Parameter modification}
-The API also lets you change camera parameters separately. In the case of the dimm application, the most important
+The API also lets you change camera parameters separately. In the case of the \Gls{DIMM} application, the most important
 need is to change the exposure time. To do this, once the camera is connected (Code in section \ref{sec:Soft_API_Connect}),
 call this function:
 \begin{verbatim}
@@ -200,16 +200,31 @@ The program principle is the same for all languages. However, for reasons of tim
 software accessibility, the program has been written in Python.
 \newpage
 \subsection{Measurement}
+The measurement program is the heart of the system. It enables the measurement to be carried out and the results to be
+processed into user-friendly values.The software principle is shown on the block diagram in figure \ref{fig:Soft_Meas}.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{assets/figures/Software/Measurement.png}
     \caption{Block diagram of the measurement function}
     \label{fig:Soft_Meas}
 \end{figure}
+Cropping the image will considerably reduce process time. The crop ratio will depend on the objects observed.
+\bigbreak
+The results process simply calculates the standard deviation of the centroid measurements taken.
+\begin{equation}
+    \sigma = \sqrt{\frac{1}{N}\sum\left(X-X_{init}\right)^2}
+\end{equation}
+This calculation can be performed for X and Y coordinates and for the total distance calculated using Pythagoras.
+However, you'll need to express the standard deviation in arc-seconds using :
+\textbf{\textcolor{red}{AJOUTER CALCUL}}
+\newline
+Once the standard deviation has been calculated, Fried's parameter can be determined by taking the coefficient $r_0$ out of
+equation \ref{eq:Opti_Sigma}:
+\textbf{\textcolor{red}{AJOUTER CALCUL}}
 \newpage
 \subsection{User interface}
 To facilitate the use of the system, it was decided to create a user interface.
-This window will contain all the elements required to use the DIMM.
+This window will contain all the elements required to use the \Gls{DIMM}.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{assets/figures/Software/GUI1.png}
@@ -217,9 +232,9 @@ This window will contain all the elements required to use the DIMM.
     \label{fig:Soft_GUI}
 \end{figure}
 The first version of the user interface is shown in Figure \ref{fig:Soft_GUI}.
-This application contains all options available for DIMM use :
+This application contains all options available for \Gls{DIMM} use :
 \begin{itemize}
-    \item "DIMM" page : This is the main part of the application. It allows you to select the measurement mode,
+    \item "\Gls{DIMM}" page : This is the main part of the application. It allows you to select the measurement mode,
           whether the measurement needs to be initialized, the location of the results file and the camera connection test.
     \item "Graphs" page : This page will show the evolution of results over time.
     \item "Camera settings" page : This part of the application performs exactly the same functions as the VIMBA application.

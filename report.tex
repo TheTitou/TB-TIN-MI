@@ -51,10 +51,6 @@
     \tableofcontents
     \let\cleardoublepage\clearpage
     \listoffigures
-    \let\cleardoublepage\clearpage
-    \listoftables
-    \let\cleardoublepage\clearpage
-    \listoflistings
 }
 
 \printnomenclature
@@ -102,16 +98,16 @@
 \clearpage
 \printbibliography
 
+\label{glossaire}
+\printnoidxglossary
+\label{index}
+\printindex
+
 \appendix
 \appendixpage
 \addappheadtotoc
 
 \input{Appendix.tex}
-
-\label{glossaire}
-\printnoidxglossary
-\label{index}
-\printindex
 
 % Le colophon est le dernier élément d'un document qui contient des notes de l'auteur concernant la mise en page et l'édition du document : il est parfaitement optionnel.
 % \input{colophon.tex}

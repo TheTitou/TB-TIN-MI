@@ -224,7 +224,7 @@
 \RequirePackage[
     backref=true,
     backend=biber,
-    style=alphabetic,
+    style=ieee,
     sorting=ynt
 ]{biblatex}
 
