@@ -25,15 +25,38 @@ For initialization, two solutions are also possible :
 \end{enumerate}
 In these 2 cases, the number of images to be used or the exposure time required to correctly average the image will need to
 be determined during the initial tests. If turbulence is not properly averaged, aberrant results may appear.
-\subsubsection{Measurement}
-bablablalba
 \subsection{Choices}
 \subsubsection{measurement method}
-balbalblaba
+The software will feature both methods of use. However, the pre-capture method with Vimba software will not yet be implemented in its first version. 
+The addition of this possibility could be agreed at a later date if there is a real interest.
 \subsubsection{Initialization}
-blalbalblalb
+The chosen initialization method is to take several images with minimal pause time. \newline
+Using a longer pause time could result in unwanted elements appearing in the image. 
+What's more, the images used during initialization could be reused for measurement. The basic principle of initialization is : 
+\begin{itemize}
+    \item Take \textit{X} images to average turbulence.
+    \item Recognition of centers of interest.
+    \item Localization of image centers.
+    \item Recovering the size of the centers of interest for cropping during measurement.
+\end{itemize}
+The number of images to be taken for the centroid to be as accurate as possible will be determined during testing. 
+If the disturbance is measured on a star, it is possible to take images in an automated way until the average image 
+is as circular as possible (the star would have been deviated at any point internal to the turbulence).
 \subsubsection{Measurement}
-bablablalba
+The measurement program will be simple in principle. However, when image processing is involved in a process, the main issue is reliability.
+The measurement program must :
+\begin{itemize}
+    \item Take a shot with the shortest possible exposure time.
+    \item Image adjustment.
+    \item Find the 2 points of interest in the image.
+    \item Determine their centroid.
+    \item Recover the result of the difference with the initialization centroid.
+    \item Repeat the above points several times.
+    \item Calculate the variance of centroid deviations
+    \item Transform value into Fried parameter
+\end{itemize}
+As stated at the beginning of this section, image processing is a very sensitive element in the program. To achieve this, 
+multiple tests will have to be carried out in order to certify the robustness of its use.
 %====================================================================================================
 % Vimba software
 %====================================================================================================
@@ -173,11 +196,16 @@ The initialization program performs the following steps :
     \item Recover and save areas of interest for measurement (Crop image afterwards to reduce processing time)
     \item Display centers of interest if required.
 \end{enumerate}
-The program principle is the same for all languages. However, for reasons of time, image processing methods and 
+The program principle is the same for all languages. However, for reasons of time, image processing methods and
 software accessibility, the program has been written in Python.
 \newpage
-\subsection{Mesure}
-blblalbalblabl
+\subsection{Measurement}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.85]{assets/figures/Software/Measurement.png}
+    \caption{Block diagram of the measurement function}
+    \label{fig:Soft_Meas}
+\end{figure}
 \newpage
 \subsection{User interface}
 To facilitate the use of the system, it was decided to create a user interface.
