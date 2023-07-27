@@ -1,0 +1,63 @@
+\section{Qualitative analysis}\label{sec:ANAL_Pos}
+As far as the mechanical and optical aspects of the project are concerned, the expected results are conclusive.
+The mechanical part is usable, works properly and the system is adjustable.
+As far as the optical part is concerned, after the preliminary tests carried out, the system is operating correctly.
+The result shown in Figure \ref{fig:MES_Ima1} is the one expected and observed for all the measurements made.
+\bigbreak
+As for the measurement results, the graphs in figures \ref{fig:MES_VarCenter1} and \ref{fig:MES_VarCenter2} show that star
+movements have been detected.
+The displacement zone is also around the initialization centroid.
+These results were expected and are very encouraging.
+\newline
+The next step is to calculate the standard deviation of these results, convert it into an angle (arc second) and output the associated
+Fried parameter. Unfortunately, due to lack of time, this part has not yet been completed.
+\newline
+\textbf{\textcolor{red}{RAJOUTER ICI QQCH}}
+\section{Quantitative analysis}
+As things stand, enough can be done to achieve a conclusive result. However, image processing and selection methods could be optimized.
+This optimization requires time and thorough testing with a large batch of measurements (as many different ones as possible).
+\newline
+Some measurements are still recognized as good when in fact they are not (Figure \ref{fig:MES_VarCenter2}).
+It would therefore be interesting to be able to add anomaly detection to the measurements so as to avoid such results. \newline
+However, the software delivered the expected results. Star detection and foreground processing are sufficient for preliminary tests.
+It would be interesting to test a batch of images (e.g. 500) by splitting them into several parts to find out the accuracy limit
+of the measurement.
+\newpage
+\section{Achievements and improvements}
+\subsection{Achievements}
+For the mechanical and optical parts, all the expected results were achieved. These results are listed below:
+\begin{itemize}
+    \item Optical development of the \Gls{DIMM} system
+    \item Mechanical development of the \Gls{DIMM} system
+    \item ZEMAX and SOLIDWORKS design of the system.
+    \item Preparation of drawings for machining mechanical components.
+    \item Design of the 12" MEADE telescope for the optics laboratory.
+\end{itemize}
+For the software part, the following objectives were achieved:
+\begin{itemize}
+    \item Creation of an image analysis program.
+    \item Detection of the image area of interest.
+    \item Separation of the 2 images.
+    \item Centroid recovery for each image.
+    \item Data retrieval and display.
+\end{itemize}
+\subsection{Improvements}
+The software works correctly. However, there are a few improvements to be made and optimizations to be added once
+a larger data set has been obtained. \newline
+The enhancements required to keep the system running smoothly are listed below:
+\begin{itemize}
+    \item Detection of measurement anomalies.
+    \item Image processing optimization.
+    \item More reliable image processing (requires a large dataset).
+    \item Addition and modification of the alghorithm for sunspot detection and seeing profil.
+    \item Added alghorithm for transforming data into user-understandable values.
+    \item Perform tests with different dataset sizes to find out the system's accuracy limits.
+\end{itemize}
+Improvements that would be accessory to the proper functioning of the system, but which would greatly help it and make it more reliable, are :
+\begin{itemize}
+    \item Measurement alghoritms added to user interface.
+    \item Addition of functions necessary for user understanding of data analysis.
+          (For example: adding graphs, tracking measurements, saving measurements and vision parameters)
+    \item Addition of pre-implemented measurement parameters.
+          (After several tests, it would be interesting to pre-program measurement profiles for each measurable star).
+\end{itemize}
