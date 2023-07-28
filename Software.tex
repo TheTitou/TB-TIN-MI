@@ -40,7 +40,7 @@ What's more, the images used during initialization could be reused for measureme
     \item Recovering the size of the centers of interest for cropping during measurement.
 \end{itemize}
 The number of images to be taken for the centroid to be as accurate as possible will be determined during testing.
-If the disturbance is measured on a star, it is possible to take images in an automated way until the average image
+If the turbulence is measured on a star, it is possible to take images in an automated way until the average image
 is as circular as possible (the star would have been deviated at any point internal to the turbulence).
 \subsubsection{Measurement}
 The measurement program will be simple in principle. However, when image processing is involved in a process, the main issue is reliability.
@@ -215,13 +215,58 @@ The results process simply calculates the standard deviation of the centroid mea
     \sigma = \sqrt{\frac{1}{N}\sum\left(X-X_{init}\right)^2}
 \end{equation}
 This calculation can be performed for X and Y coordinates and for the total distance calculated using Pythagoras.
-However, you'll need to express the standard deviation in arc-seconds using :
-\textbf{\textcolor{red}{AJOUTER CALCUL}}
+However, you'll need to express the standard deviation in radian, then in arc seconds using using matrix optics |6|.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.85]{assets/figures/Software/OpticMatrice.png}
+    \caption{Optical diagram for dimmension conversion}
+    \label{fig:Soft_OptiMat}
+\end{figure}
+As shown in Figure \ref{fig:Soft_OptiMat}, the system consists of 3 different matrices (two translational and one refractive in the middle).
+The total matrix of this system is :
+\begin{equation}
+    C = T_2 * R * T_1 =
+    \begin{bmatrix}
+        1 & 50 \\
+        0 & 1
+    \end{bmatrix}
+    *
+    \begin{bmatrix}
+        1     & 0 \\
+        -1/50 & 1
+    \end{bmatrix}
+    *
+    \begin{bmatrix}
+        1 & 152 \\
+        0 & 1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0     & 50    \\
+        -0.02 & -2.04
+    \end{bmatrix}
+\end{equation}
+And calculating postions:
+\begin{equation}
+    x_i = \begin{bmatrix}
+        \sigma \\
+        \alpha_i
+    \end{bmatrix}
+    ; \ x_o =
+    \begin{bmatrix}
+        0 \\
+        \alpha_o (= \sigma\ [rad])
+    \end{bmatrix}
+    \\ where\ \alpha_o\ is\ \sigma\ [rad]
+\end{equation}
+\begin{equation}
+    x_i = C * x_o => x_o = C^{-1} * x_i \\ where\ \alpha_i\ has\ no\ effect\ on\ \alpha_o
+\end{equation}
 \newline
 Once the standard deviation has been calculated, Fried's parameter can be determined by taking the coefficient $r_0$ out of
 equation \ref{eq:Opti_Sigma}:
 \begin{equation}
-    r_0 = 0.1698^{3/5}*\left(\frac{\lambda}{\sigma}\right)^{6/5}*\left(\frac{1}{D}\right)^{1/5}
+    r_0 = 0.1698^{3/5}*\left(\frac{\lambda}{\sigma}\right)^{6/5}*\left(\frac{1}{D}\right)^{1/5} \\ where\ D = D_{MT} \ (\ref{eq:DMT})
 \end{equation}
 \newpage
 \subsection{User interface}
