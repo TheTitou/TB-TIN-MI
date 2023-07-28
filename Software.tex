@@ -9,11 +9,11 @@ Two options are available for creating the software:
     \item \textbf{Pre-capture of images using Vimba software (\ref{sec:Vimba})} : \newline
           In this case, the images are taken using the software supplied with the camera and then entered into the software develop with python.
           The problem is that the operator carrying out the measurement will have to switch between initialization parameters and parameters
-          for measurements on the Vimba software. For this solution, different software modes will also be required
+          for measurements on the Vimba software. For this solution, different software modes will also be required.
     \item \textbf{Image capture and analysis} :\newline
           The second solution involves automatic measurement and initialization. The operator would simply point the telescope at an
           object and launch the software. The problem with this solution is that it would be more complex to detect a bug. In this case,
-          we'd have to come up with solutions to recognize measurement bugs as quickly as possible.
+          we would have to come up with solutions to recognize measurement bugs as quickly as possible.
 \end{enumerate}
 \subsubsection{Initialization}
 For initialization, two solutions are also possible :
@@ -52,8 +52,8 @@ The measurement program must :
     \item Determine their centroid.
     \item Recover the result of the difference with the initialization centroid.
     \item Repeat the above points several times.
-    \item Calculate the variance of centroid deviations
-    \item Transform value into Fried parameter
+    \item Calculate the variance of centroid deviations.
+    \item Transform value into Fried parameter.
 \end{itemize}
 As stated at the beginning of this section, image processing is a very sensitive element in the program. To achieve this,
 multiple tests will have to be carried out in order to certify the robustness of its use.
@@ -191,9 +191,9 @@ The initialization program performs the following steps :
     \item Load initialization parameters (e.g. longer exposure time)
     \item Take several images to average out turbulence as far as possible (and as quickly as possible).
     \item Image adjustment (e.g.: clear defaults, increase contrast, etc.)
-    \item Location of the 2 focal points of the image
+    \item Location of the 2 focal points of the image.
     \item Find the centroid of each area of interest.
-    \item Recover and save areas of interest for measurement (Crop image afterwards to reduce processing time)
+    \item Recover and save areas of interest for measurement (Crop image afterwards to reduce processing time).
     \item Display centers of interest if required.
 \end{enumerate}
 The program principle is the same for all languages. However, for reasons of time, image processing methods and
@@ -215,7 +215,7 @@ The results process simply calculates the standard deviation of the centroid mea
     \sigma = \sqrt{\frac{1}{N}\sum\left(X-X_{init}\right)^2}
 \end{equation}
 This calculation can be performed for X and Y coordinates and for the total distance calculated using Pythagoras.
-However, you'll need to express the standard deviation in radian, then in arc seconds using using matrix optics |6|.
+However, you'll need to express the standard deviation in radian, then in arc seconds using matrix optics |6|.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{assets/figures/Software/OpticMatrice.png}
